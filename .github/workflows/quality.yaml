@@ -1,0 +1,73 @@
+name: Quality
+
+on:
+  push:
+    branches:
+      - master
+  pull-request:
+    branches:
+      - master
+
+jobs:
+  sast:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+  lint:
+    name: clang-lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+  format:
+    name: clang-format
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+  sanitizer:
+    name: Sanitizers
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+  fuzzing:
+    name: Fuzzing
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+  header:
+    name: File Header Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+  reproducible:
+    name: Reproducibility
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+  coverage:
+    name: Test Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
