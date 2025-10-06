@@ -37,9 +37,9 @@ jobs:
         run: | 
           pip install poetry
 
-      - name: Install Dependencies
+      - name: Build
         run: |
-          conan build . --build=missing
+          conan build . --build=missing -s compiler.cppstd=20
           poetry install --all-groups
 
       - name: Test

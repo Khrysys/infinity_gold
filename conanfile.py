@@ -1,7 +1,7 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake, cmake_layout, CMakeToolchain
 from conan.tools.scm import Git
-
+from conan.tools.build import check_min_cppstd
 
 class CinfinityConan(ConanFile):
     name = "cinfinity"
@@ -13,9 +13,10 @@ class CinfinityConan(ConanFile):
     generators = "CMakeDeps", "CMakeToolchain"
     exports_sources = "CMakeLists.txt", "bindings/**", "core/**", "nn/**"
     
+    def validate(self):
+        check_min_cppstd(self, 20)
+    
     def requirements(self):
-        self.settings.compiler.cppstd = "20"
-
         self.requires("abseil/20240116.1") 
         self.requires("onnxruntime/1.18.1")
         self.requires("pybind11/3.0.1")

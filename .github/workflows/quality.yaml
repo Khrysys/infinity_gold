@@ -56,9 +56,9 @@ jobs:
           build-mode: ${{ matrix.build-mode }}
 
       - if: matrix.language == 'c-cpp'
-        name: Install Dependencies (C++)
+        name: Build (C++)
         run: |
-          conan install . --build=missing
+          conan build . --build=missing -s compiler.cppstd=20
 
       - if: matrix.language == 'python'
         name: Install Dependencies (Python)
