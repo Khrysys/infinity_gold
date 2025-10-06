@@ -16,12 +16,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        - language: actions
-          build-mode: none
-        - language: c-cpp
-          build-mode: manual
-        - language: python
-          build-mode: autobuild
+        include:
+          - language: actions
+            build-mode: none
+          - language: c-cpp
+            build-mode: manual
+          - language: python
+            build-mode: autobuild
 
     permissions:
       security-events: write
