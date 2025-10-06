@@ -11,15 +11,17 @@ on:
 jobs:
   sast:
     name: CodeQL Analysis (${{ matrix.language }})
-    runs-on: ubuntu-latest
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
 
     strategy:
       fail-fast: false
       matrix:
-        language:
-          - actions
-          - c_cpp
-          - python
+        - language: actions
+          build-mode: none
+        - language: c-cpp
+          build-mode: manual
+        - language: python
+          build-mode: autobuild
 
     permissions:
       security-events: write
@@ -31,10 +33,16 @@ jobs:
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
-      - name: Setup Conan
+      - if: matrix.build-mode == 'c-cpp'
+        name: Setup Conan
         uses: conan-io/setup-conan@v1.2.0
         with:
           cache_packages: true
+
+      - if: matrix.language == 'python'
+        name: Setup Poetry
+        run: | 
+          pip install poetry
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -42,7 +50,8 @@ jobs:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
 
-      - name: Install Dependencies
+      - if: matrix.language == 'c-cpp'
+        name: Install Dependencies (C++)
         run: |
           conan install . --build=missing
 
