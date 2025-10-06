@@ -16,12 +16,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        - language: actions
-          build-mode: none
-        - language: c-cpp
-          build-mode: manual
-        - language: python
-          build-mode: autobuild
+        include:
+          - language: actions
+            build-mode: none
+          - language: c-cpp
+            build-mode: manual
+          - language: python
+            build-mode: autobuild
 
     permissions:
       security-events: write
@@ -33,7 +34,7 @@ jobs:
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
-      - if: matrix.build-mode == 'c-cpp'
+      - if: matrix.language == 'c-cpp'
         name: Setup Conan
         uses: conan-io/setup-conan@v1.2.0
         with:
