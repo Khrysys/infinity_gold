@@ -1,5 +1,9 @@
 # Infinity
 
+[![Build](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/build.yaml/badge.svg)](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/build.yaml)
+[![Documentation](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/docs.yaml/badge.svg)](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/docs.yaml)
+[![Quality](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/quality.yaml/badge.svg)](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/quality.yaml)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/11265/badge)](https://www.bestpractices.dev/projects/11265)
 ## Description
 
 This project is a high-performance C++20 chess engine. It uses a neural 
@@ -55,4 +59,4 @@ This project is developed and maintained by its community.
 See [CODEOWNERS.md](./CODEOWNERS.md) for the current maintainers,  
 and [CONTRIBUTORS.md](./CONTRIBUTORS.md) for a list of contributors.  
 
-Copyright © 2025 FLOSS Skeleton Project.
+Copyright © 2025 Infinity Chess Engine Project.
