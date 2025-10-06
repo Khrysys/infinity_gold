@@ -10,11 +10,46 @@ on:
 
 jobs:
   sast:
-    name: CodeQL Analysis
+    name: CodeQL Analysis (${{ matrix.language }})
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - actions
+          - c_cpp
+          - python
+
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
 
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+
+      - name: Setup Conan
+        uses: conan-io/setup-conan@v1.2.0
+        with:
+          cache_packages: true
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      - name: Install Dependencies
+        run: |
+          conan install . --build=missing
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
 
   lint:
     name: clang-lint
