@@ -29,4 +29,4 @@ plugins:
   - privacy
 
 nav:
-  Home: index.md
+  - Home: index.md
