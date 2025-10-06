@@ -63,7 +63,7 @@ jobs:
       - if: matrix.language == 'python'
         name: Install Dependencies (Python)
         run: |
-          poetry install . --all-groups
+          poetry install --all-groups
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
