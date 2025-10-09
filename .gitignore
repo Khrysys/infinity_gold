@@ -1,0 +1,5 @@
+# CMake + Conan
+build/
+CMakeUserPresets.json
+# MkDocs cache
+.cache/

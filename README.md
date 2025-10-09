@@ -1,8 +1,8 @@
-# Infinity
+# ℵ₀ — Aleph
 
-[![Build](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/build.yaml/badge.svg)](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/build.yaml)
-[![Documentation](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/docs.yaml/badge.svg)](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/docs.yaml)
-[![Quality](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/quality.yaml/badge.svg)](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/quality.yaml)
+[![Build](https://github.com/KhrySustemAI/aleph/actions/workflows/build.yaml/badge.svg)](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/build.yaml)
+[![Documentation](https://github.com/KhrySystemAI/aleph/actions/workflows/docs.yaml/badge.svg)](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/docs.yaml)
+[![Quality](https://github.com/KhrySystemAI/aleph/actions/workflows/quality.yaml/badge.svg)](https://github.com/KhrySystemAI/infinity_gold/actions/workflows/quality.yaml)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/11265/badge)](https://www.bestpractices.dev/projects/11265)
 ## Description
 

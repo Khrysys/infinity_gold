@@ -1,0 +1,32 @@
+site_name: Aleph-0
+site_url: https://aleph.github.io
+
+theme:
+  name: material
+  language: en
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: assets/images/aleph.svg
+  logo: assets/images/aleph.svg
+  palette: 
+  
+    - scheme: slate
+      primary: indigo
+      accent: yellow
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+    - scheme: default
+      primary: indigo
+      accent: yellow
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+plugins:
+  - privacy
+
+nav:
+  - Home: index.md

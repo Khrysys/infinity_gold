@@ -7,67 +7,121 @@ on:
   pull_request:
     branches:
       - master
+      
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   sast:
-    name: CodeQL Analysis
-    runs-on: ubuntu-latest
+    name: CodeQL Analysis (${{ matrix.language }})
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: actions
+            build-mode: none
+          - language: c-cpp
+            build-mode: manual
+          - language: python
+            build-mode: none
+
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+
+      - if: matrix.language == 'c-cpp'
+        name: Setup Conan
+        uses: conan-io/setup-conan@v1.2.0
+        with:
+          cache_packages: true
+
+      - if: matrix.language == 'python'
+        name: Setup Poetry
+        run: | 
+          pip install poetry
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      - if: matrix.language == 'c-cpp'
+        name: Build (C++)
+        run: |
+          conan build . --build=missing -s compiler.cppstd=20
+
+      - if: matrix.language == 'python'
+        name: Install Dependencies (Python)
+        run: |
+          poetry install --all-groups
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
 
   lint:
     name: clang-lint
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
   format:
     name: clang-format
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
   sanitizer:
     name: Sanitizers
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
   fuzzing:
     name: Fuzzing
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
   header:
     name: File Header Checks
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
   reproducible:
     name: Reproducibility
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
   coverage:
     name: Test Coverage
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
   docs:
     name: Documentation
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
